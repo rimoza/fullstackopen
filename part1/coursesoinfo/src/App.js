@@ -1,5 +1,34 @@
 const Header = (props) => {
-  return <div>{props.course.name}</div>;
+  return (
+    <div
+      style={{
+        backgroundColor: "blue",
+        padding: "10px",
+        color: "#fff",
+        textAlign: "center",
+      }}
+    >
+      {props.course.name}
+    </div>
+  );
+};
+
+const Hello = (props) => {
+  const { age, name, bornYear } = props;
+  // const bornYear = () => {
+  //   const yearNow = new Date().getFullYear();
+  //   return yearNow - age;
+  // };
+  // const bornYear = () => new Date().getFullYear() - age;
+  return (
+    <div>
+      <p>
+        Hello {name}, you are {age} years old
+      </p>
+      {/* <p> So you were probably born in {bornYear()}</p> */}
+      <p> So you were probably born in {bornYear}</p>
+    </div>
+  );
 };
 
 const Part = (props) => {
@@ -52,11 +81,17 @@ function App() {
     ],
   };
 
+  const name = "Ridwan";
+  const age = 10;
+  const year = new Date().getFullYear();
+  const bornYear = year - age;
   return (
     <div>
       <Header course={course} />
       <Content course={course} />
       <Total course={course} />
+      <Hello name={name} age={age + 20} bornYear={bornYear} />
+      <Hello name={name} age={age} bornYear={bornYear} />
     </div>
   );
 }
