@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const Header = (props) => {
   return (
     <div
@@ -32,7 +34,6 @@ const Hello = (props) => {
 };
 
 const Part = (props) => {
-  console.log(props.course, "part props");
   const part = props.course.parts.map((part) => {
     return (
       <p key={part.name}>
@@ -62,7 +63,8 @@ const Total = (props) => {
   return <div>Total of exercises {total}</div>;
 };
 
-function App() {
+const App = () => {
+  const [value, setValue] = useState(10);
   const course = {
     name: "Half Stack application development",
     parts: [
@@ -90,10 +92,11 @@ function App() {
       <Header course={course} />
       <Content course={course} />
       <Total course={course} />
+      <button onClick={() => setValue(0)}>{value}</button>
       <Hello name={name} age={age + 20} bornYear={bornYear} />
       <Hello name={name} age={age} bornYear={bornYear} />
     </div>
   );
-}
+};
 
 export default App;
