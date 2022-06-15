@@ -6,12 +6,14 @@ const Button = ({ text, handleClick }) => {
 
 const StatisticLine = ({ text, value }) => {
   return (
-    <div>
-      {" "}
-      <p>
-        {text} {value}
-      </p>{" "}
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>{text}</td>
+          <td> {value} </td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 
@@ -19,14 +21,16 @@ const Statistics = (props) => {
   return (
     <div>
       <h1>Statistics</h1>
+
       <StatisticLine text="good" value={props.good} />
+
       <StatisticLine text="neutral" value={props.neutral} />
+
       <StatisticLine text="bad" value={props.bad} />
+
       <p>All {props.sum} </p>
-      <p onClick={props.calculateAverage}>average {props.average} </p>
-      <p onClick={props.handlePositivePercentage}>
-        positive {props.positivePercentage}
-      </p>
+      <p>average {props.average} </p>
+      <p>positive {props.positivePercentage}</p>
     </div>
   );
 };
@@ -35,8 +39,7 @@ const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-  const [positivePercentage, setPositivePercentage] = useState(0);
-  const [average, setAverage] = useState(0);
+
   const handleGood = () => {
     setGood(good + 1);
   };
@@ -47,18 +50,9 @@ const App = () => {
     setBad(bad + 1);
   };
 
-  const calculateAverage = () => {
-    const sum = good + neutral + bad;
-    const average = sum / 3;
-    setAverage(average);
-  };
-
-  const handlePositivePercentage = () => {
-    const posiveSum = good;
-    setPositivePercentage((posiveSum / (good + neutral + bad)) * 100);
-  };
-
   const sum = good + neutral + bad;
+  const feedbackAaverage = sum / 3;
+  const positive = (good / sum) * 100;
   return (
     <div>
       <h1>give feedback</h1>
@@ -74,10 +68,8 @@ const App = () => {
           neutral={neutral}
           bad={bad}
           sum={sum}
-          average={average}
-          positivePercentage={positivePercentage}
-          calculateAverage={calculateAverage}
-          handlePositivePercentage={handlePositivePercentage}
+          average={feedbackAaverage}
+          positivePercentage={positive}
         />
       ) : (
         "No feedback given"
