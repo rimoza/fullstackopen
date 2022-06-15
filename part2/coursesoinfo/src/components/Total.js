@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 
 const Total = ({ course }) => {
-  const total = course.parts.reduce((acc, part) => acc + part.exercises, 0);
-  const [resetTotal, setResetTotal] = useState(total);
+  const courseMap = course.map((course, index) => (
+    <div key={index}>
+      {course.parts.reduce((acc, part) => acc + part.exercises, 0)}
+    </div>
+  ));
+
+  const [resetTotal, setResetTotal] = useState(courseMap);
   return (
     <div>
-      <p>Total {resetTotal}</p>
+      <h4>Total of {resetTotal} exercises</h4>
       <button onClick={() => setResetTotal(0)}> Reset </button>
     </div>
   );
