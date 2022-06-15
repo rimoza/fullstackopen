@@ -1,17 +1,16 @@
 import { useState } from "react";
 
 const Statistics = (props) => {
-  console.log(props, "props");
   return (
     <div>
       <h1>Statistics</h1>
       <p>good {props.good} </p>
       <p>neutral {props.neutral} </p>
       <p>bad {props.bad} </p>
-      <p>All {props.good + props.neutral + props.bad} </p>
+      <p>All {props.sum} </p>
       <p onClick={props.calculateAverage}>average {props.average} </p>
       <p onClick={props.handlePositivePercentage}>
-        positive {props.positivePercentage}{" "}
+        positive {props.positivePercentage}
       </p>
     </div>
   );
@@ -23,7 +22,6 @@ const App = () => {
   const [bad, setBad] = useState(0);
   const [positivePercentage, setPositivePercentage] = useState(0);
   const [average, setAverage] = useState(0);
-
   const handleGood = () => {
     setGood(good + 1);
   };
@@ -45,6 +43,7 @@ const App = () => {
     setPositivePercentage((posiveSum / (good + neutral + bad)) * 100);
   };
 
+  const sum = good + neutral + bad;
   return (
     <div>
       <h1>give feedback</h1>
@@ -53,15 +52,20 @@ const App = () => {
         <button onClick={handleNeutral}>neutral</button>
         <button onClick={handleBad}>bad</button>
       </div>
-      <Statistics
-        good={good}
-        neutral={neutral}
-        bad={bad}
-        average={average}
-        calculateAverage={calculateAverage}
-        positivePercentage={positivePercentage}
-        handlePositivePercentage={handlePositivePercentage}
-      />
+      {sum > 0 ? (
+        <Statistics
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          sum={sum}
+          average={average}
+          positivePercentage={positivePercentage}
+          calculateAverage={calculateAverage}
+          handlePositivePercentage={handlePositivePercentage}
+        />
+      ) : (
+        "No feedback given"
+      )}
     </div>
   );
 };
