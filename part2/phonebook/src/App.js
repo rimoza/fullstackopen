@@ -17,6 +17,11 @@ const App = () => {
 
   const handleSumbit = (e) => {
     e.preventDefault();
+    if (persons.find((person) => person.name === newName)) {
+      alert(`${newName} is already in the list`);
+      setNewName("");
+      return;
+    }
     const neUSerObject = {
       name: newName,
     };
