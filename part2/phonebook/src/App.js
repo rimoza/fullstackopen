@@ -1,50 +1,41 @@
 import { useState } from "react";
+import Filter from "./components/Filter";
 import Person from "./components/Person";
+import PersonForm from "./components/PersonFom";
 
 const App = () => {
   const [persons, setPersons] = useState([
-    {
-      name: "Ridwan Mohamed",
-    },
+    { name: "Arto Hellas", number: "040-123456", id: 1 },
+    { name: "Ada Lovelace", number: "39-44-5323523", id: 2 },
+    { name: "Dan Abramov", number: "12-43-234345", id: 3 },
+    { name: "Mary Poppendieck", number: "39-23-6423122", id: 4 },
   ]);
 
-  const [newName, setNewName] = useState("");
+  const [searchItem, setSearchItem] = useState("");
 
-  const handleNewNameChange = (e) => {
-    console.log(e.target.value);
-    setNewName(e.target.value);
-  };
-
-  const handleSumbit = (e) => {
-    e.preventDefault();
-    if (persons.find((person) => person.name === newName)) {
-      alert(`${newName} is already in the list`);
-      setNewName("");
-      return;
+  const filteredName = persons.filter((p) => {
+    if (searchItem === "") {
+      return p;
+    } else if (
+      p.name.toLocaleLowerCase().includes(searchItem.toLocaleLowerCase())
+    ) {
+      return p;
     }
-    const neUSerObject = {
-      name: newName,
-    };
-    setPersons(persons.concat(neUSerObject));
-    setNewName("");
+  });
+  const filterByName = (e) => {
+    setSearchItem(e.target.value);
   };
 
   return (
     <div>
       <h1>Phonebook</h1>
-      <form onSubmit={handleSumbit}>
-        <label>Name:</label> {""}
-        <input
-          type="text"
-          name="newName"
-          value={newName}
-          onChange={handleNewNameChange}
-        />
-        <button>Add</button>
-      </form>
+      <Filter filterByName={filterByName} />
+      <h1>Add New Person</h1>
+      <PersonForm persons={persons} setPersons={setPersons} />
       <h1>Numbers</h1>
+
       <div>
-        {persons.map((person) => (
+        {filteredName.map((person) => (
           <Person key={person.name} person={person} />
         ))}
       </div>
