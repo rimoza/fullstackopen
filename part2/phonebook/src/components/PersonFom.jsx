@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PersonForm = (props) => {
+const PersonForm = ({ persons, setPersons }) => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const handleNewNameChange = (e) => {
@@ -13,7 +13,7 @@ const PersonForm = (props) => {
 
   const handleSumbit = (e) => {
     e.preventDefault();
-    if (props.persons.find((person) => person.name === newName)) {
+    if (persons.find((person) => person.name === newName)) {
       alert(`${newName} is already in the list`);
       setNewName("");
       setNewNumber("");
@@ -27,7 +27,7 @@ const PersonForm = (props) => {
       name: newName,
       phone: newNumber,
     };
-    props.setPersons(props.persons.concat(newUSerObject));
+    setPersons(persons.concat(newUSerObject));
     setNewName("");
     setNewNumber("");
   };
