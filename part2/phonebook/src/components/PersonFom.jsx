@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import Input from "./fromElements/Input";
 const PersonForm = ({ persons, setPersons }) => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
@@ -35,7 +35,7 @@ const PersonForm = ({ persons, setPersons }) => {
     <form onSubmit={handleSumbit}>
       <div>
         <label htmlFor="name">Name:</label>
-        <input
+        <Input
           type="text"
           id="name"
           name="newName"
@@ -45,7 +45,7 @@ const PersonForm = ({ persons, setPersons }) => {
       </div>
       <div>
         <label htmlFor="phone">Number:</label>
-        <input
+        <Input
           type="text"
           id="phone"
           name="phoneNumber"
